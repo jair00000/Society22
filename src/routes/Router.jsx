@@ -7,6 +7,9 @@ import Projects from "../pages/Projects"
 import Blog from "../pages/Blog"
 import Contact from "../pages/Contact"
 import NotFound from "../pages/NotFound"
+import PrivacyPolicy from "../pages/PrivacyPolicy"
+import Faqs from "../pages/Faqs"
+import CookiePolicy from "../pages/CookiePolicy"
 
 export default function Router() {
   return (
@@ -19,6 +22,9 @@ export default function Router() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/faqs" element={<Faqs />} />
+        <Route path="/cookie-policy" element={<CookiePolicy />} />
 
         <Route path="*" element={<NotFound />} />
 
