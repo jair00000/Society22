@@ -25,8 +25,7 @@ export default function Footer() {
             </h4>
             <nav className="flex flex-col gap-4 font-ibm-plex text-sm text-gray-400 font-light">
               <Link to="/about" className="hover:text-[#C49A45] transition-colors w-max">About Us</Link>
-              <Link to="/services" className="hover:text-[#C49A45] transition-colors w-max">Seating Plan</Link>
-              <Link to="/testimonials" className="hover:text-[#C49A45] transition-colors w-max">Testimonials</Link>
+              <Link to="/events" className="hover:text-[#C49A45] transition-colors w-max">Events</Link>
               <Link to="/contact" className="hover:text-[#C49A45] transition-colors w-max">Contact</Link>
             </nav>
           </div>
@@ -64,6 +63,7 @@ export default function Footer() {
             <Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link to="/faqs" className="hover:text-white transition-colors">FAQs</Link>
             <Link to="/cookie-policy" className="hover:text-white transition-colors">Cookie Policy</Link>
+            <Link to="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
           </div>
         </div>
 

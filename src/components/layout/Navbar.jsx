@@ -20,8 +20,7 @@ export default function Navbar() {
         <nav className="hidden lg:flex items-center gap-6 xl:gap-10">
           <Link to="/" className="text-sm font-medium text-white hover:text-[#C49A45] transition-colors whitespace-nowrap">Home</Link>
           <Link to="/about" className="text-sm font-medium text-gray-300 hover:text-[#C49A45] transition-colors whitespace-nowrap">About</Link>
-          <Link to="/services" className="text-sm font-medium text-gray-300 hover:text-[#C49A45] transition-colors whitespace-nowrap">Services</Link>
-          <Link to="/testimonials" className="text-sm font-medium text-gray-300 hover:text-[#C49A45] transition-colors whitespace-nowrap">Testimonials</Link>
+          <Link to="/events" className="text-sm font-medium text-gray-300 hover:text-[#C49A45] transition-colors whitespace-nowrap">Events</Link>
           <Link to="/contact" className="text-sm font-medium text-gray-300 hover:text-[#C49A45] transition-colors whitespace-nowrap">Contact</Link>
         </nav>
 
@@ -50,8 +49,7 @@ export default function Navbar() {
         <nav className="lg:hidden bg-[#0a0a0a] border-t border-gray-800 absolute w-full left-0 top-full flex flex-col items-center py-8 gap-6 shadow-2xl">
           <Link to="/" className="text-white font-medium hover:text-[#C49A45] transition-colors" onClick={toggleMenu}>Home</Link>
           <Link to="/about" className="text-gray-300 font-medium hover:text-[#C49A45] transition-colors" onClick={toggleMenu}>About</Link>
-          <Link to="/services" className="text-gray-300 font-medium hover:text-[#C49A45] transition-colors" onClick={toggleMenu}>Services</Link>
-          <Link to="/testimonials" className="text-gray-300 font-medium hover:text-[#C49A45] transition-colors" onClick={toggleMenu}>Testimonials</Link>
+          <Link to="/events" className="text-gray-300 font-medium hover:text-[#C49A45] transition-colors" onClick={toggleMenu}>Events</Link>
           <Link to="/contact" className="text-gray-300 font-medium hover:text-[#C49A45] transition-colors" onClick={toggleMenu}>Contact</Link>
           <Link 
             to="/join" 

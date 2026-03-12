@@ -1,5 +1,6 @@
 import SEO from "../seo/SEO"
 import PageWrapper from "../components/layout/PageWrapper"
+import CTA from "../components/sections/CTA"
 
 export default function About() {
   return (
@@ -125,6 +126,8 @@ export default function About() {
           </div>
         </div>
       </section>
-    </PageWrapper>
+
+        <CTA />
+      </PageWrapper>
   )
 }
