@@ -61,8 +61,9 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Society 22. All rights reserved.
           </p>
           <div className="flex gap-6 font-ibm-plex text-gray-500 text-xs font-light">
-            <Link to="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link to="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+            <Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link to="/faqs" className="hover:text-white transition-colors">FAQs</Link>
+            <Link to="/cookie-policy" className="hover:text-white transition-colors">Cookie Policy</Link>
           </div>
         </div>
 

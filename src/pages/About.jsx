@@ -37,7 +37,7 @@ export default function About() {
               <img
                 src="/images/about/renzi7.webp"
                 alt="Renzi Keith Yanes"
-                className="w-full h-full max-h-[680px] object-cover rounded-[18px] border border-[#C49A45]/30 shadow-[0_14px_34px_rgba(196,154,69,0.28)]"
+                className="w-full h-[520px] md:h-[680px] object-cover object-top rounded-[18px] border border-[#C49A45]/30 shadow-[0_14px_34px_rgba(196,154,69,0.28)]"
                 loading="lazy"
               />
             </div>

@@ -5,7 +5,7 @@ export default function PageWrapper({ children }) {
   return (
     <div className="flex flex-col min-h-screen w-full">
       <Navbar />
-      <main className="flex-grow">
+      <main className="flex-grow w-full bg-[#0a0a0a]">
         {children}
       </main>
       <Footer />
