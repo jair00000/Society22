@@ -1,4 +1,5 @@
 import { FaMapMarkedAlt, FaUserFriends, FaMagic } from "react-icons/fa"
+import { Link } from "react-router-dom"
 
 export default function About() {
   return (
@@ -59,10 +60,16 @@ export default function About() {
         </div>
 
         {/* Closing Hook */}
-        <div className="text-center pb-8">
+        <div className="text-center pb-8 flex flex-col items-center gap-8">
           <p className="font-playfair text-2xl md:text-3xl italic text-[#C49A45]">
             Where every gathering goes beyond expectations.
           </p>
+          <Link
+            to="/about"
+            className="inline-block border border-[#C49A45] text-[#C49A45] font-montserrat text-xs tracking-[0.25em] uppercase px-10 py-4 hover:bg-[#C49A45] hover:text-black transition-colors duration-300"
+          >
+            Learn More
+          </Link>
         </div>
 
       </div>

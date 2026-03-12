@@ -257,7 +257,7 @@ export default function Join() {
 
 							<div>
 								<label htmlFor="socialHandles" className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.04em] text-white">
-									Social Media Handle(s) (Instagram / Facebook / LinkedIn - optional but recommended)
+									Social Media Handle(s) (Instagram / Facebook; LinkedIn is optional)
 								</label>
 								<textarea
 									id="socialHandles"
