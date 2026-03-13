@@ -13,6 +13,7 @@ import PrivacyPolicy from "../pages/PrivacyPolicy"
 import Faqs from "../pages/Faqs"
 import CookiePolicy from "../pages/CookiePolicy"
 import TermsOfService from "../pages/TermsOfService"
+import RefundPolicy from "../pages/RefundPolicy"
 
 export default function Router() {
   return (
@@ -31,6 +32,7 @@ export default function Router() {
         <Route path="/faqs" element={<Faqs />} />
         <Route path="/cookie-policy" element={<CookiePolicy />} />
         <Route path="/terms" element={<TermsOfService />} />
+        <Route path="/refund-policy" element={<RefundPolicy />} />
 
         <Route path="*" element={<NotFound />} />
 
