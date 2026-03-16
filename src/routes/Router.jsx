@@ -8,6 +8,7 @@ import Projects from "../pages/Projects"
 import Blog from "../pages/Blog"
 import Contact from "../pages/Contact"
 import Join from "../pages/Join"
+import Payment from "../pages/Payment"
 import NotFound from "../pages/NotFound"
 import PrivacyPolicy from "../pages/PrivacyPolicy"
 import Faqs from "../pages/Faqs"
@@ -28,6 +29,7 @@ export default function Router() {
         <Route path="/blog" element={<Blog />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/join" element={<Join />} />
+        <Route path="/payment" element={<Payment />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/faqs" element={<Faqs />} />
         <Route path="/cookie-policy" element={<CookiePolicy />} />

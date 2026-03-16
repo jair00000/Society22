@@ -34,6 +34,7 @@ const EVENT_OPTIONS = [
 ]
 
 export default function Join() {
+	const [isSubmitted, setIsSubmitted] = useState(false)
 	const [formData, setFormData] = useState({
 		applicantNames: "",
 		applicantAges: "",
@@ -59,7 +60,8 @@ export default function Join() {
 
 	const handleSubmit = (event) => {
 		event.preventDefault()
-		window.alert("Application submitted.")
+		setIsSubmitted(true)
+		window.scrollTo({ top: 0, behavior: "smooth" })
 	}
 
 	const handleEventChoiceToggle = (option) => {
@@ -108,12 +110,50 @@ export default function Join() {
 						</h1>
 						<p className="mt-2 max-w-4xl text-sm leading-relaxed text-[#F2F2F2] sm:text-[15px]">
 							Apply individually or as a group (up to 5 people) for this exclusive Society 22 rooftop
-							event. Submission does not guarantee an invitation; final confirmation will be sent upon
-							approval.
+							event. Users answer the form first, then wait for approval. If approved, an Approval Ticket
+							is sent so payment can be completed directly on the website through the payment system.
 						</p>
 					</div>
 
+					<div className="border-t border-[#C49A45]/20 bg-[#0A0A0A] px-6 py-6 sm:px-10">
+						<p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#C49A45]">
+							Application Process
+						</p>
+						<div className="mt-4 grid gap-4 md:grid-cols-3">
+							<div className="rounded-xl border border-[#C49A45]/20 bg-[#0D0D0D] p-4">
+								<p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#C49A45]">Step 1</p>
+								<h2 className="mt-2 text-base font-semibold text-white">Answer the Form</h2>
+								<p className="mt-2 text-xs leading-relaxed text-[#CFCFCF]">
+									Complete the Join Us application with your group details, preferences, and contact information.
+								</p>
+							</div>
+							<div className="rounded-xl border border-[#C49A45]/20 bg-[#0D0D0D] p-4">
+								<p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#C49A45]">Step 2</p>
+								<h2 className="mt-2 text-base font-semibold text-white">Wait for Approval</h2>
+								<p className="mt-2 text-xs leading-relaxed text-[#CFCFCF]">
+									Our team reviews each submission before deciding who can move forward to the next step.
+								</p>
+							</div>
+							<div className="rounded-xl border border-[#C49A45]/20 bg-[#0D0D0D] p-4">
+								<p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#C49A45]">Step 3</p>
+								<h2 className="mt-2 text-base font-semibold text-white">Approval Ticket and Payment</h2>
+								<p className="mt-2 text-xs leading-relaxed text-[#CFCFCF]">
+									If approved, an Approval Ticket is sent and payment is completed directly on the website.
+								</p>
+							</div>
+						</div>
+					</div>
+
 					<div className="border-t border-[#C49A45]/35 px-6 py-7 sm:px-10 sm:py-8">
+						{isSubmitted && (
+							<div className="mb-6 rounded-xl border border-[#4C9E6F]/40 bg-[#0E1712] px-4 py-4 text-[#CFF8DD] sm:px-5">
+								<p className="text-sm leading-relaxed sm:text-base">
+									Application submitted successfully. We will review your request and, if approved, send an Approval Ticket to
+									<span className="font-semibold"> {formData.contactEmail || formData.contactMobile}</span>{" "}
+									so you can continue with direct website payment.
+								</p>
+							</div>
+						)}
 						<form className="space-y-6" onSubmit={handleSubmit}>
 							<div>
 								<label htmlFor="applicantNames" className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.04em] text-white">
