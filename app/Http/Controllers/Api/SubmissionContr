@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Submission;
+
+class SubmissionController extends Controller
+{
+    public function contact(Request $request)
+    {
+        $submission = Submission::create([
+            'type'    => 'contact',
+            'name'    => $request->name,
+            'email'   => $request->email,
+            'message' => $request->message,
+            'status'  => 'pending'
+        ]);
+        return response()->json(['message' => 'Message received!'], 201);
+    }
+
+    public function join(Request $request)
+    {
+        $submission = Submission::create([
+            'type'         => 'join',
+            'name'         => $request->name,
+            'email'        => $request->email,
+            'phone'        => $request->phone,
+            'organization' => $request->organization,
+            'message'      => $request->message,
+            'status'       => 'pending'
+        ]);
+        return response()->json(['message' => 'Application submitted!'], 201);
+    }
+
+    public function index()
+    {
+        return response()->json(Submission::latest()->get());
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $submission = Submission::findOrFail($id);
+        $submission->update(['status' => $request->status]);
+        return response()->json(['message' => 'Status updated to ' . $request->status]);
+    }
+}
