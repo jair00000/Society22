@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { FaInstagram, FaFacebookF, FaTwitter } from "react-icons/fa"
+import { FaInstagram, FaFacebookF } from "react-icons/fa"
 
 export default function Footer() {
   return (
@@ -26,6 +26,7 @@ export default function Footer() {
             <nav className="flex flex-col gap-4 font-ibm-plex text-sm text-gray-400 font-light">
               <Link to="/about" className="hover:text-[#C49A45] transition-colors w-max">About Us</Link>
               <Link to="/events" className="hover:text-[#C49A45] transition-colors w-max">Events</Link>
+              <Link to="/blog" className="hover:text-[#C49A45] transition-colors w-max">Blog</Link>
               <Link to="/contact" className="hover:text-[#C49A45] transition-colors w-max">Contact</Link>
             </nav>
           </div>
@@ -36,19 +37,16 @@ export default function Footer() {
               Connect With Us
             </h4>
             <div className="flex gap-4 mb-8">
-              <a href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#C49A45] hover:border-[#C49A45] transition-all">
+              <a href="https://www.instagram.com/society22ph/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#C49A45] hover:border-[#C49A45] transition-all">
                 <FaInstagram className="text-lg" />
               </a>
               <a href="https://www.facebook.com/profile.php?id=61588421893457" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#C49A45] hover:border-[#C49A45] transition-all">
                 <FaFacebookF className="text-lg" />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#C49A45] hover:border-[#C49A45] transition-all">
-                <FaTwitter className="text-lg" />
-              </a>
             </div>
             <p className="font-ibm-plex text-gray-400 text-sm font-light">
               Pampanga, Philippines<br />
-              info@society22.com
+              contact@society22.club
             </p>
           </div>
 

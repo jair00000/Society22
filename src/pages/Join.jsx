@@ -1,411 +1,211 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import SEO from "../seo/SEO"
 import PageWrapper from "../components/layout/PageWrapper"
-
-const HOBBY_OPTIONS = [
-	"Fitness / Sports",
-	"Business / Entrepreneurship",
-	"Travel & Exploration",
-	"Music / Arts / Creative Work",
-	"Food & Bar Culture",
-	"Other (please specify)",
-]
-
-const PERSONALITY_OPTIONS = [
-	"Outgoing & Social",
-	"Reserved but Observant",
-	"Competitive & Energetic",
-	"Calm & Grounded",
-	"Playful & Spontaneous",
-	"Other (please specify)",
-]
-
-const EVENT_OPTIONS = [
-	"Meeting new people",
-	"Casual conversations",
-	"Interactive games (beer pong, card games, billiards)",
-	"Music & rooftop atmosphere",
-	"Dancing if the vibe picks up",
-	"Singing if the moment calls for it",
-	"Enjoying drinks in a relaxed setting",
-	"Coming with friends but open to meeting others",
-	"Just relaxing and observing",
-	"Other (please specify)",
-]
+import DynamicForm from "../components/DynamicForm"
+import { apiClient } from "../utils/api"
 
 export default function Join() {
-	const [isSubmitted, setIsSubmitted] = useState(false)
-	const [formData, setFormData] = useState({
-		applicantNames: "",
-		applicantAges: "",
-		applicantGenders: "",
-		hobbyType: "",
-		hobbyOther: "",
-		personalityType: "",
-		personalityOther: "",
-		eventChoices: [],
-		eventOther: "",
-		socialHandles: "",
-		contactFirstName: "",
-		contactLastName: "",
-		contactMobile: "",
-		contactEmail: "",
-		notesAccepted: false,
-	})
+const [forms, setForms] = useState([])
+const [loading, setLoading] = useState(true)
+const [error, setError] = useState("")
+const [selectedSlug, setSelectedSlug] = useState(null)
 
-	const handleChange = (event) => {
-		const { name, value, type, checked } = event.target
-		setFormData((prev) => ({ ...prev, [name]: type === "checkbox" ? checked : value }))
-	}
+useEffect(() => {
+let isActive = true
 
-	const handleSubmit = (event) => {
-		event.preventDefault()
-		setIsSubmitted(true)
-		window.scrollTo({ top: 0, behavior: "smooth" })
-	}
+async function fetchForms() {
+setLoading(true)
+setError("")
 
-	const handleEventChoiceToggle = (option) => {
-		setFormData((prev) => {
-			const exists = prev.eventChoices.includes(option)
-
-			if (exists) {
-				return {
-					...prev,
-					eventChoices: prev.eventChoices.filter((item) => item !== option),
-				}
-			}
-
-			if (prev.eventChoices.length >= 3) {
-				window.alert("You can only select up to three choices.")
-				return prev
-			}
-
-			return {
-				...prev,
-				eventChoices: [...prev.eventChoices, option],
-			}
-		})
-	}
-
-	const fieldClass =
-		"h-10 w-full rounded-lg border border-[#C49A45]/45 bg-[#0B0B0B] px-3 py-2 font-ibm-plex text-xs text-white placeholder:text-[#8A8A8A] focus:border-[#C49A45] focus:outline-none"
-	const optionTextClass = "text-sm text-white"
-	const textAreaClass =
-		"min-h-[130px] w-full rounded-lg border border-[#C49A45]/45 bg-[#0B0B0B] px-3 py-2 font-ibm-plex text-xs text-white placeholder:text-[#8A8A8A] focus:border-[#C49A45] focus:outline-none"
-
-	return (
-		<PageWrapper>
-			<SEO
-				title="Join Society 22"
-				description="Society 22 rooftop invitation request form."
-			/>
-
-			<section className="bg-[#050505] px-4 py-8 font-ibm-plex sm:px-6 lg:px-8">
-				<div className="mx-auto w-full max-w-5xl overflow-hidden rounded-3xl border border-[#C49A45]/25 bg-[#070707] font-ibm-plex shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(196,154,69,0.16)]">
-					<div className="bg-gradient-to-r from-[#1E1A14] via-[#111111] to-[#1A1510] px-6 py-7 sm:px-10 sm:py-8">
-						<h1 className="text-xl font-normal leading-tight text-white sm:text-2xl">
-							Society 22 - Rooftop Edition Event
-							<br />
-							Invitation Request
-						</h1>
-						<p className="mt-2 max-w-4xl text-sm leading-relaxed text-[#F2F2F2] sm:text-[15px]">
-							Apply individually or as a group (up to 5 people) for this exclusive Society 22 rooftop
-							event. Users answer the form first, then wait for approval. If approved, an Approval Ticket
-							is sent so payment can be completed directly on the website through the payment system.
-						</p>
-					</div>
-
-					<div className="border-t border-[#C49A45]/20 bg-[#0A0A0A] px-6 py-6 sm:px-10">
-						<p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#C49A45]">
-							Application Process
-						</p>
-						<div className="mt-4 grid gap-4 md:grid-cols-3">
-							<div className="rounded-xl border border-[#C49A45]/20 bg-[#0D0D0D] p-4">
-								<p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#C49A45]">Step 1</p>
-								<h2 className="mt-2 text-base font-semibold text-white">Answer the Form</h2>
-								<p className="mt-2 text-xs leading-relaxed text-[#CFCFCF]">
-									Complete the Join Us application with your group details, preferences, and contact information.
-								</p>
-							</div>
-							<div className="rounded-xl border border-[#C49A45]/20 bg-[#0D0D0D] p-4">
-								<p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#C49A45]">Step 2</p>
-								<h2 className="mt-2 text-base font-semibold text-white">Wait for Approval</h2>
-								<p className="mt-2 text-xs leading-relaxed text-[#CFCFCF]">
-									Our team reviews each submission before deciding who can move forward to the next step.
-								</p>
-							</div>
-							<div className="rounded-xl border border-[#C49A45]/20 bg-[#0D0D0D] p-4">
-								<p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#C49A45]">Step 3</p>
-								<h2 className="mt-2 text-base font-semibold text-white">Approval Ticket and Payment</h2>
-								<p className="mt-2 text-xs leading-relaxed text-[#CFCFCF]">
-									If approved, an Approval Ticket is sent and payment is completed directly on the website.
-								</p>
-							</div>
-						</div>
-					</div>
-
-					<div className="border-t border-[#C49A45]/35 px-6 py-7 sm:px-10 sm:py-8">
-						{isSubmitted && (
-							<div className="mb-6 rounded-xl border border-[#4C9E6F]/40 bg-[#0E1712] px-4 py-4 text-[#CFF8DD] sm:px-5">
-								<p className="text-sm leading-relaxed sm:text-base">
-									Application submitted successfully. We will review your request and, if approved, send an Approval Ticket to
-									<span className="font-semibold"> {formData.contactEmail || formData.contactMobile}</span>{" "}
-									so you can continue with direct website payment.
-								</p>
-							</div>
-						)}
-						<form className="space-y-6" onSubmit={handleSubmit}>
-							<div>
-								<label htmlFor="applicantNames" className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.04em] text-white">
-									Full Name(s) of Applicant(s) <span className="text-red-500">*</span>
-								</label>
-								<input
-									id="applicantNames"
-									name="applicantNames"
-									value={formData.applicantNames}
-									onChange={handleChange}
-									type="text"
-									className={fieldClass}
-									placeholder="Enter full applicant name(s)"
-									required
-								/>
-							</div>
-
-							<div>
-								<label htmlFor="applicantAges" className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.04em] text-white">
-									Age(s) of Applicant(s) <span className="text-red-500">*</span>
-								</label>
-								<input
-									id="applicantAges"
-									name="applicantAges"
-									value={formData.applicantAges}
-									onChange={handleChange}
-									type="text"
-									className={fieldClass}
-									placeholder="Enter applicant ages"
-									required
-								/>
-							</div>
-
-							<div>
-								<label htmlFor="applicantGenders" className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.04em] text-white">
-									Gender(s) of Applicant(s) <span className="text-red-500">*</span>
-								</label>
-								<input
-									id="applicantGenders"
-									name="applicantGenders"
-									value={formData.applicantGenders}
-									onChange={handleChange}
-									type="text"
-									className={fieldClass}
-									placeholder="Enter applicant genders"
-									required
-								/>
-							</div>
-
-							<div className="space-y-4">
-								<div className="rounded-lg border border-[#C49A45]/35 bg-[#0A0A0A] p-4 shadow-[0_14px_22px_-16px_rgba(196,154,69,0.7)] sm:p-5">
-									<p className="mb-3 text-sm font-normal text-white">
-										Which hobby best describes you or your group? <span className="text-red-500">*</span>
-									</p>
-									<div className="space-y-2.5">
-										{HOBBY_OPTIONS.map((option) => (
-											<label key={option} className="flex items-center gap-3">
-												<input
-													type="radio"
-													name="hobbyType"
-													value={option}
-													checked={formData.hobbyType === option}
-													onChange={handleChange}
-													className="h-4 w-4 accent-[#C49A45]"
-												/>
-												<span className={optionTextClass}>{option}</span>
-											</label>
-										))}
-									</div>
-									{formData.hobbyType === "Other (please specify)" && (
-										<input
-											name="hobbyOther"
-											value={formData.hobbyOther}
-											onChange={handleChange}
-											type="text"
-											placeholder="Please specify"
-											className="mt-3 h-10 w-full rounded-lg border border-[#C49A45]/45 bg-[#0B0B0B] px-3 py-2 text-xs text-white placeholder:text-[#8A8A8A] focus:border-[#C49A45] focus:outline-none"
-										/>
-									)}
-								</div>
-
-								<div className="rounded-lg border border-[#C49A45]/35 bg-[#0A0A0A] p-4 shadow-[0_14px_22px_-16px_rgba(196,154,69,0.7)] sm:p-5">
-									<p className="mb-3 text-sm font-normal text-white">
-										How would you describe your personality or group dynamic? <span className="text-red-500">*</span>
-									</p>
-									<div className="space-y-2.5">
-										{PERSONALITY_OPTIONS.map((option) => (
-											<label key={option} className="flex items-center gap-3">
-												<input
-													type="radio"
-													name="personalityType"
-													value={option}
-													checked={formData.personalityType === option}
-													onChange={handleChange}
-													className="h-4 w-4 accent-[#C49A45]"
-												/>
-												<span className={optionTextClass}>{option}</span>
-											</label>
-										))}
-									</div>
-									{formData.personalityType === "Other (please specify)" && (
-										<input
-											name="personalityOther"
-											value={formData.personalityOther}
-											onChange={handleChange}
-											type="text"
-											placeholder="Please specify"
-											className="mt-3 h-10 w-full rounded-lg border border-[#C49A45]/45 bg-[#0B0B0B] px-3 py-2 text-xs text-white placeholder:text-[#8A8A8A] focus:border-[#C49A45] focus:outline-none"
-										/>
-									)}
-								</div>
-
-								<div className="rounded-lg border border-[#C49A45]/35 bg-[#0A0A0A] p-4 shadow-[0_14px_22px_-16px_rgba(196,154,69,0.7)] sm:p-5">
-									<p className="mb-3 text-sm font-normal text-white">
-										What are you most looking forward to at this Society 22 event? (Select up to three) <span className="text-red-500">*</span>
-									</p>
-									<div className="space-y-2.5">
-										{EVENT_OPTIONS.map((option) => (
-											<label key={option} className="flex items-center gap-3">
-												<input
-													type="checkbox"
-													checked={formData.eventChoices.includes(option)}
-													onChange={() => handleEventChoiceToggle(option)}
-													className="h-4 w-4 accent-[#C49A45]"
-												/>
-												<span className={optionTextClass}>{option}</span>
-											</label>
-										))}
-									</div>
-									{formData.eventChoices.includes("Other (please specify)") && (
-										<input
-											name="eventOther"
-											value={formData.eventOther}
-											onChange={handleChange}
-											type="text"
-											placeholder="Please specify"
-											className="mt-3 h-10 w-full rounded-lg border border-[#C49A45]/45 bg-[#0B0B0B] px-3 py-2 text-xs text-white placeholder:text-[#8A8A8A] focus:border-[#C49A45] focus:outline-none"
-										/>
-									)}
-								</div>
-
-							<div>
-								<label htmlFor="socialHandles" className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.04em] text-white">
-									Social Media Handle(s) (Instagram / Facebook; LinkedIn is optional)
-								</label>
-								<textarea
-									id="socialHandles"
-									name="socialHandles"
-									value={formData.socialHandles}
-									onChange={handleChange}
-									className={textAreaClass}
-									placeholder="@yourhandle"
-								/>
-							</div>
-
-							<div className="rounded-lg border border-[#C49A45]/35 bg-[#0A0A0A] p-4 shadow-[0_14px_22px_-16px_rgba(196,154,69,0.7)] sm:p-5">
-								<p className="mb-3 text-sm font-normal text-white">
-									Contact Person - Full Name (for group applications, assign one main contact) <span className="text-red-500">*</span>
-								</p>
-								<div className="grid gap-3 sm:grid-cols-2">
-									<div>
-										<input
-											id="contactFirstName"
-											name="contactFirstName"
-											value={formData.contactFirstName}
-											onChange={handleChange}
-											type="text"
-											className={fieldClass}
-											placeholder="First Name"
-											required
-										/>
-									</div>
-									<div>
-										<input
-											id="contactLastName"
-											name="contactLastName"
-											value={formData.contactLastName}
-											onChange={handleChange}
-											type="text"
-											className={fieldClass}
-											placeholder="Last Name"
-											required
-										/>
-									</div>
-								</div>
-							</div>
-
-							<div className="rounded-lg border border-[#C49A45]/35 bg-[#0A0A0A] p-4 shadow-[0_14px_22px_-16px_rgba(196,154,69,0.7)] sm:p-5">
-								<p className="mb-3 text-sm font-normal text-white">
-									Contact Person - Mobile Number <span className="text-red-500">*</span>
-								</p>
-								<input
-									id="contactMobile"
-									name="contactMobile"
-									value={formData.contactMobile}
-									onChange={handleChange}
-									type="tel"
-									className="h-10 w-full max-w-md rounded-lg border border-[#C49A45]/45 bg-[#0B0B0B] px-3 py-2 text-xs text-white placeholder:text-[#8A8A8A] focus:border-[#C49A45] focus:outline-none"
-									placeholder="(000) 000-0000"
-									required
-								/>
-								<p className="mt-2 text-xs text-[#C9C9C9]">Please enter a valid phone number.</p>
-							</div>
-
-							<div className="rounded-lg border border-[#C49A45]/45 bg-[#0A0A0A] p-4 shadow-[0_14px_22px_-16px_rgba(196,154,69,0.7)] sm:p-5">
-								<p className="mb-3 text-sm font-normal text-white">Contact Person - Email (optional)</p>
-								<input
-									id="contactEmail"
-									name="contactEmail"
-									value={formData.contactEmail}
-									onChange={handleChange}
-									type="email"
-									className="h-10 w-full max-w-md rounded-lg border border-[#C49A45]/45 bg-[#0B0B0B] px-3 py-2 text-xs text-white placeholder:text-[#8A8A8A] focus:border-[#C49A45] focus:outline-none"
-									placeholder="example@example.com"
-								/>
-								<p className="mt-2 text-xs text-[#C9C9C9]">example@example.com</p>
-							</div>
-
-							<div className="rounded-lg border border-[#C49A45]/35 bg-[#0A0A0A] p-4 shadow-[0_14px_22px_-16px_rgba(196,154,69,0.7)] sm:p-5">
-								<h3 className="text-sm font-semibold uppercase tracking-[0.08em] text-[#A67C2F]">Important Notes:</h3>
-								<ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-[#F4C062]">
-									<li>Maximum of 5 people per application</li>
-									<li>Groups may be separated during certain activities to encourage interaction</li>
-									<li>Submission of this form does not guarantee an invitation</li>
-									<li>Final confirmation will be sent upon approval</li>
-								</ul>
-								<label className="mt-3 flex items-start gap-2 text-xs text-white">
-									<input
-										type="checkbox"
-										name="notesAccepted"
-										checked={formData.notesAccepted}
-										onChange={handleChange}
-										className="mt-0.5 h-4 w-4 accent-[#C49A45]"
-										required
-									/>
-									I understand and agree with these notes.
-								</label>
-							</div>
-
-							<div className="pt-2 text-center">
-								<button
-									type="submit"
-									className="rounded-md bg-[#C49A45] px-8 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-black shadow-[0_0_22px_rgba(196,154,69,0.35)] transition hover:bg-[#A67C2F]"
-								>
-									Submit Application
-								</button>
-							</div>
-							</div>
-						</form>
-					</div>
-				</div>
-			</section>
-		</PageWrapper>
-	)
+try {
+const { data } = await apiClient.get("/forms")
+if (!isActive) {
+return
 }
+
+const formsList = Array.isArray(data) ? data : Array.isArray(data?.data) ? data.data : []
+setForms(formsList)
+} catch (requestError) {
+if (!isActive) {
+return
+}
+
+console.error("Failed to load forms:", requestError)
+setForms([])
+setError("Unable to load available forms right now. Please try again later.")
+} finally {
+if (isActive) {
+setLoading(false)
+}
+}
+}
+
+fetchForms()
+
+return () => {
+isActive = false
+}
+}, [])
+
+const handleSelectForm = (slug) => {
+setSelectedSlug(slug)
+}
+
+const handleBackToSelection = () => {
+setSelectedSlug(null)
+}
+
+if (loading) {
+return (
+<PageWrapper>
+<section className="bg-[#050505] px-4 py-8 font-ibm-plex sm:px-6 lg:px-8">
+<div className="mx-auto w-full max-w-5xl">
+<div className="flex h-96 items-center justify-center rounded-3xl border border-[#C49A45]/25 bg-[#070707]">
+<div className="text-center">
+<div className="mb-4 inline-block h-12 w-12 animate-spin rounded-full border-4 border-[#C49A45]/30 border-t-[#C49A45]"></div>
+<p className="text-gray-300">Loading available forms...</p>
+</div>
+</div>
+</div>
+</section>
+</PageWrapper>
+)
+}
+
+if (selectedSlug) {
+return (
+<PageWrapper>
+<SEO
+title="Join Society 22"
+description="Society 22 rooftop invitation request form."
+/>
+
+<section className="bg-[#050505] px-4 py-8 font-ibm-plex sm:px-6 lg:px-8">
+<div className="mx-auto w-full max-w-5xl overflow-hidden rounded-3xl border border-[#C49A45]/25 bg-[#070707] font-ibm-plex shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(196,154,69,0.16)]">
+<div className="bg-gradient-to-r from-[#1E1A14] via-[#111111] to-[#1A1510] px-6 py-7 sm:px-10 sm:py-8 flex items-center justify-between">
+<div>
+<h1 className="text-xl font-normal leading-tight text-white sm:text-2xl">
+Application Form
+</h1>
+<p className="mt-2 max-w-3xl text-sm leading-relaxed text-[#F2F2F2] sm:text-[15px]">
+Complete this application and we'll review your request.
+</p>
+</div>
+<button
+onClick={handleBackToSelection}
+className="ml-4 whitespace-nowrap rounded-sm bg-[#C49A45]/20 border border-[#C49A45] px-4 py-2 text-sm font-semibold uppercase tracking-wider text-[#C49A45] transition hover:bg-[#C49A45]/30"
+>
+Back
+</button>
+</div>
+
+<div className="border-t border-[#C49A45]/35 bg-[#0a0a0a] px-6 py-7 sm:px-10 sm:py-8">
+<DynamicForm slug={selectedSlug} />
+</div>
+</div>
+</section>
+</PageWrapper>
+)
+}
+
+return (
+<PageWrapper>
+<SEO
+title="Join Society 22"
+description="Society 22 rooftop invitation request form."
+/>
+
+<section className="bg-[#050505] px-4 py-8 font-ibm-plex sm:px-6 lg:px-8">
+<div className="mx-auto w-full max-w-5xl overflow-hidden rounded-3xl border border-[#C49A45]/25 bg-[#070707] font-ibm-plex shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(196,154,69,0.16)]">
+<div className="relative overflow-hidden border-b border-[#C49A45]/20 bg-[radial-gradient(circle_at_top_right,rgba(197,160,89,0.18),transparent_50%),linear-gradient(120deg,#17120d_0%,#0f0f0f_55%,#1a1410_100%)] px-6 py-8 sm:px-10 sm:py-10">
+<div className="pointer-events-none absolute right-0 top-0 h-36 w-36 rounded-full bg-[#C49A45]/10 blur-2xl"></div>
+<div className="relative z-10">
+<p className="inline-flex items-center rounded-full border border-[#C49A45]/50 bg-[#0b0b0b]/70 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#E3C37E]">
+Curated Invitations
+</p>
+<h1 className="mt-4 max-w-3xl text-2xl font-semibold leading-tight text-white sm:text-4xl">
+Choose Your Society 22 Experience
+</h1>
+<p className="mt-4 max-w-4xl text-sm leading-relaxed text-[#E8E0CF] sm:text-[15px]">
+Select an event below, submit your application, and wait for review from our team. Approved applicants receive a private approval ticket to unlock payment.
+</p>
+<div className="mt-5 flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.14em]">
+<span className="rounded-full border border-[#C49A45]/35 bg-[#0A0A0A] px-3 py-1 text-[#D8BC80]">Exclusive Crowd</span>
+<span className="rounded-full border border-[#C49A45]/35 bg-[#0A0A0A] px-3 py-1 text-[#D8BC80]">Curated Entry</span>
+<span className="rounded-full border border-[#C49A45]/35 bg-[#0A0A0A] px-3 py-1 text-[#D8BC80]">Limited Slots</span>
+</div>
+</div>
+</div>
+
+<div className="border-b border-[#C49A45]/20 bg-[#0A0A0A] px-6 py-7 sm:px-10">
+<div className="flex items-end justify-between gap-4">
+<div>
+<p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#C49A45]">Application Journey</p>
+<h2 className="mt-2 text-lg font-medium text-white sm:text-xl">How Joining Works</h2>
+</div>
+<p className="text-xs uppercase tracking-[0.15em] text-[#8d8d8d]">Three Simple Steps</p>
+</div>
+<div className="mt-5 grid gap-4 md:grid-cols-3">
+<div className="rounded-2xl border border-[#C49A45]/30 bg-[#0D0D0D] p-5 shadow-[0_18px_32px_-24px_rgba(197,160,89,0.9)]">
+<div className="flex items-center gap-3">
+<span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#C49A45] text-xs font-semibold text-[#C49A45]">01</span>
+<p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#C49A45]">Pick an Event</p>
+</div>
+<p className="mt-3 text-sm leading-relaxed text-[#D6D6D6]">Choose the event experience that matches your vibe and group profile.</p>
+</div>
+<div className="rounded-2xl border border-[#C49A45]/30 bg-[#0D0D0D] p-5 shadow-[0_18px_32px_-24px_rgba(197,160,89,0.9)]">
+<div className="flex items-center gap-3">
+<span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#C49A45] text-xs font-semibold text-[#C49A45]">02</span>
+<p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#C49A45]">Send Your Form</p>
+</div>
+<p className="mt-3 text-sm leading-relaxed text-[#D6D6D6]">Complete the dynamic application with accurate details and preferences.</p>
+</div>
+<div className="rounded-2xl border border-[#C49A45]/30 bg-[#0D0D0D] p-5 shadow-[0_18px_32px_-24px_rgba(197,160,89,0.9)]">
+<div className="flex items-center gap-3">
+<span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#C49A45] text-xs font-semibold text-[#C49A45]">03</span>
+<p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#C49A45]">Approval + Payment</p>
+</div>
+<p className="mt-3 text-sm leading-relaxed text-[#D6D6D6]">If approved, receive your ticket and complete payment through the portal.</p>
+</div>
+</div>
+</div>
+
+<div className="border-t border-[#C49A45]/35 bg-[#0a0a0a] px-6 py-7 sm:px-10 sm:py-8">
+{error ? (
+<div className="mb-6 rounded-lg border border-red-500/30 bg-red-950/30 px-4 py-4 text-sm text-red-100" aria-live="polite">
+{error}
+</div>
+) : null}
+
+{forms.length === 0 && !error ? (
+<div className="rounded-lg border border-[#C49A45]/30 bg-[#0D0D0D] px-6 py-8 text-center">
+<p className="text-gray-300">No events currently available. Please check back soon.</p>
+</div>
+) : (
+<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+{forms.map((form) => (
+<button
+key={form.slug}
+onClick={() => handleSelectForm(form.slug)}
+className="group relative rounded-lg border border-[#C49A45]/40 bg-[#0D0D0D] p-6 text-left transition hover:border-[#C49A45] hover:bg-[#131313]"
+>
+<div className="absolute inset-0 rounded-lg bg-gradient-to-br from-[#C49A45]/5 to-transparent opacity-0 transition group-hover:opacity-100"></div>
+<div className="relative z-10">
+<h3 className="text-base font-semibold text-white group-hover:text-[#C49A45] transition">
+{form.event_name}
+</h3>
+<p className="mt-2 text-xs uppercase tracking-wider text-gray-400 group-hover:text-[#C49A45]/80 transition">
+Apply Now {'>'}
+</p>
+</div>
+</button>
+))}
+</div>
+)}
+</div>
+</div>
+</section>
+</PageWrapper>
+)
+}
+

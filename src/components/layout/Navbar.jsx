@@ -21,6 +21,7 @@ export default function Navbar() {
           <Link to="/" className="text-sm font-medium text-white hover:text-[#C49A45] transition-colors whitespace-nowrap">Home</Link>
           <Link to="/about" className="text-sm font-medium text-gray-300 hover:text-[#C49A45] transition-colors whitespace-nowrap">About</Link>
           <Link to="/events" className="text-sm font-medium text-gray-300 hover:text-[#C49A45] transition-colors whitespace-nowrap">Events</Link>
+          <Link to="/blog" className="text-sm font-medium text-gray-300 hover:text-[#C49A45] transition-colors whitespace-nowrap">Blog</Link>
           <Link to="/contact" className="text-sm font-medium text-gray-300 hover:text-[#C49A45] transition-colors whitespace-nowrap">Contact</Link>
         </nav>
 
@@ -50,6 +51,7 @@ export default function Navbar() {
           <Link to="/" className="text-white font-medium hover:text-[#C49A45] transition-colors" onClick={toggleMenu}>Home</Link>
           <Link to="/about" className="text-gray-300 font-medium hover:text-[#C49A45] transition-colors" onClick={toggleMenu}>About</Link>
           <Link to="/events" className="text-gray-300 font-medium hover:text-[#C49A45] transition-colors" onClick={toggleMenu}>Events</Link>
+          <Link to="/blog" className="text-gray-300 font-medium hover:text-[#C49A45] transition-colors" onClick={toggleMenu}>Blog</Link>
           <Link to="/contact" className="text-gray-300 font-medium hover:text-[#C49A45] transition-colors" onClick={toggleMenu}>Contact</Link>
           <Link 
             to="/join" 

@@ -6,6 +6,8 @@ import About from "../pages/About"
 import Events from "../pages/Events"
 import Projects from "../pages/Projects"
 import Blog from "../pages/Blog"
+import BlogDetail from "../pages/BlogDetail"
+import EventDetail from "../pages/EventDetail"
 import Contact from "../pages/Contact"
 import Join from "../pages/Join"
 import Payment from "../pages/Payment"
@@ -25,8 +27,12 @@ export default function Router() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/events" element={<Events />} />
+        <Route path="/events/:id" element={<EventDetail />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/blogs" element={<Blog />} />
+        <Route path="/blog/:id" element={<BlogDetail />} />
+        <Route path="/blogs/:id" element={<BlogDetail />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/join" element={<Join />} />
         <Route path="/payment" element={<Payment />} />
